@@ -32,6 +32,7 @@ $accent-color: #488f99;
   color: $accent-color;
   font-weight: 500;
   font-size: 1.05rem;
+  text-underline-offset: 0.4rem;
 
   &:hover {
     @include text-decoration;
