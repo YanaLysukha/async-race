@@ -1,4 +1,4 @@
-$accent-color: #488f99;
+@use '../../index.scss' as *;
 
 @mixin text-decoration {
   text-decoration: underline;
@@ -10,7 +10,7 @@ $accent-color: #488f99;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 5rem;
+  padding: 2rem 4rem;
 }
 
 .navigation-list {
