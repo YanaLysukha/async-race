@@ -2,13 +2,14 @@ import './style.scss';
 
 type InputProps = {
   type: string;
-  disabled: boolean;
+  disabled?: boolean;
+  placeholder?: string;
 };
 
-const Input = ({ type, disabled }: InputProps) => {
+const Input = ({ type, disabled, placeholder }: InputProps) => {
   return (
     <div>
-      <input type={type} disabled={disabled}></input>
+      <input className="input" type={type} disabled={disabled} placeholder={placeholder}></input>
     </div>
   );
 };

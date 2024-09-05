@@ -1,0 +1,12 @@
+@use '../../index.scss' as *;
+
+.control-panel-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.control-panel-buttons {
+    display: flex;
+    gap: 0.4rem;
+}
