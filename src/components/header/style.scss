@@ -1,0 +1,43 @@
+$accent-color: #488f99;
+
+@mixin text-decoration {
+  text-decoration: underline;
+  text-underline-offset: 0.4rem;
+  color: $accent-color;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 5rem;
+}
+
+.navigation-list {
+  display: flex;
+  gap: 1.05rem;
+
+  li {
+    list-style: none;
+  }
+}
+
+.logo {
+  color: $accent-color;
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+.nav-link {
+  color: $accent-color;
+  font-weight: 500;
+  font-size: 1.05rem;
+
+  &:hover {
+    @include text-decoration;
+  }
+}
+
+.current {
+  @include text-decoration;
+}
