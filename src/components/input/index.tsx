@@ -1,3 +1,5 @@
+import './style.scss';
+
 type InputProps = {
   type: string;
   disabled: boolean;

@@ -1,0 +1,28 @@
+@use '../../index.scss' as *;
+
+.input {
+  font-family: $font-family;
+  padding: 0.3rem;
+  border-radius: 3px;
+  border: 2px solid $primary-color;
+  background-color: $primary-color;
+
+  &:focus {
+    border: 2px solid $accent-color;
+    outline: none;
+  }
+
+  &:disabled {
+    border: none;
+    background-color: $disabled;
+    &::placeholder {
+      color: $primary-color;
+    }
+  }
+}
+
+input[type='color'] {
+  padding: 0;
+  width: 2.6rem;
+  height: 28.8px;
+}
