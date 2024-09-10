@@ -1,5 +1,9 @@
 @use '../../index.scss' as *;
 
+.race-track-wrapper {
+  margin-top: 1rem;
+}
+
 .race-track-info {
   display: flex;
   justify-content: space-between;
@@ -38,4 +42,9 @@
     width: 3rem;
     height: 2.7rem;
   }
+}
+
+.race-btn-container {
+  display: flex;
+  gap: 0.3rem;
 }
