@@ -2,6 +2,8 @@ import Button from '../button';
 import CarIcon from '../car';
 import DeleteIcon from '../icons/delete-icon';
 import EditIcon from '../icons/edit-icon';
+import StartIcon from '../icons/start-icon';
+import StopIcon from '../icons/stop-icon';
 import './style.scss';
 
 const RaceTrack = () => {
@@ -20,8 +22,12 @@ const RaceTrack = () => {
       </div>
       <div className="race-track">
         <div className="race-btn-container">
-          <Button></Button>
-          <Button></Button>
+          <Button classes="action">
+            <StartIcon></StartIcon>
+          </Button>
+          <Button classes="action">
+            <StopIcon></StopIcon>
+          </Button>
         </div>
         <CarIcon carColor="#ff5733" />
       </div>
