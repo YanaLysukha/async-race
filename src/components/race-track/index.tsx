@@ -6,11 +6,16 @@ import StartIcon from '../icons/start-icon';
 import StopIcon from '../icons/stop-icon';
 import './style.scss';
 
-const RaceTrack = () => {
+type RaceTrackProps = {
+  name: string;
+  color: string;
+};
+
+const RaceTrack = ({ name, color }: RaceTrackProps) => {
   return (
     <div className="race-track-wrapper">
       <div className="race-track-info">
-        <h3 className="car-name">BMW</h3>
+        <h3 className="car-name">{name}</h3>
         <div className="car-btn-container">
           <Button classes="select" text="Edit">
             <EditIcon></EditIcon>
@@ -29,7 +34,7 @@ const RaceTrack = () => {
             <StopIcon></StopIcon>
           </Button>
         </div>
-        <CarIcon carColor="#ff5733" />
+        <CarIcon carColor={color} />
       </div>
     </div>
   );
