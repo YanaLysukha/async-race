@@ -4,7 +4,7 @@ const EditIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
     {...props}
     fill="#e3e5e5"
-    width="18px"
+    width="20px"
     height="30px"
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
