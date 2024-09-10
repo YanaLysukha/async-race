@@ -1,5 +1,6 @@
 import Button from '../button';
 import CarIcon from '../car';
+import EditIcon from '../icons/edit-icon';
 import './style.scss';
 
 const RaceTrack = () => {
@@ -8,7 +9,9 @@ const RaceTrack = () => {
       <div className="race-track-info">
         <h3 className="car-name">BMW</h3>
         <div className="car-btn-container">
-          <Button classes="select" text="Edit"></Button>
+          <Button classes="select" text="Edit">
+            <EditIcon></EditIcon>
+          </Button>
           <Button classes="select" text="Delete"></Button>
         </div>
       </div>

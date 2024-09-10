@@ -11,31 +11,31 @@
 }
 
 .car-btn-container {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .race-track {
-    width: 100%;
-    background-color: $track-background;
-    border-bottom: 2px dashed $primary-color;
-    padding: 0 0.23rem;
+  width: 100%;
+  background-color: $track-background;
+  border-bottom: 2px dashed $primary-color;
+  padding: 0 0.23rem;
 
-    position: relative;
-    display: flex;
-    align-items: center;
+  position: relative;
+  display: flex;
+  align-items: center;
 
-    &::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 5rem;
-        background-image: url('../../assets/flag.svg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
-        width: 3rem;
-        height: 2.7rem;
-    }
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 5rem;
+    background-image: url('../../assets/flag.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 3rem;
+    height: 2.7rem;
+  }
 }
