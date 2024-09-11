@@ -3,7 +3,7 @@ import CarControlPanel from '../../components/car-control-panel';
 import RaceTrack from '../../components/race-track';
 import './style.scss';
 import { fetchCars, selectCurrentCars } from '../../store/slices/garageSlice';
-import { useAppDispatch, useAppSelector } from '../../store';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 const GaragePage = () => {
   const dispatch = useAppDispatch();
