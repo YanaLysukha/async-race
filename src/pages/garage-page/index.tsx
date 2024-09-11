@@ -1,26 +1,16 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import CarControlPanel from '../../components/car-control-panel';
 import RaceTrack from '../../components/race-track';
 import './style.scss';
-import Api from '../../api/cars';
-import { ICar } from '../../types';
+import { fetchCars, selectCurrentCars } from '../../store/slices/garageSlice';
+import { useAppDispatch, useAppSelector } from '../../store';
 
 const GaragePage = () => {
-  const [cars, setCars] = useState<ICar[]>([]);
-
-  const fetchData = useCallback(async () => {
-    try {
-      const carsFromGarage = await Api.getCars();
-      if (carsFromGarage) {
-        setCars(carsFromGarage);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }, []);
+  const dispatch = useAppDispatch();
+  const cars = useAppSelector(selectCurrentCars);
 
   useEffect(() => {
-    fetchData();
+    dispatch(fetchCars());
   }, []);
 
   return (
