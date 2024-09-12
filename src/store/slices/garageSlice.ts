@@ -6,10 +6,12 @@ import Api from '../../api/cars';
 
 interface IGarageState {
   cars: ICar[];
+  carsAmount: number;
 }
 
 const initialState: IGarageState = {
   cars: [],
+  carsAmount: 0,
 };
 
 export const garageSlice = createSlice({
@@ -19,16 +21,21 @@ export const garageSlice = createSlice({
     setCars: (state, action: PayloadAction<ICar[]>) => {
       state.cars = action.payload;
     },
+    setCarsAmount: (state, action: PayloadAction<number>) => {
+      state.carsAmount = action.payload;
+    },
   },
 });
 
 export const fetchCars = (page: number) => async (dispatch: AppDispatch) => {
-  const cars = await Api.getCars(page);
-  dispatch(setCars(cars.cars));
+  const result = await Api.getCars(page);
+  dispatch(setCars(result.cars));
+  dispatch(setCarsAmount(Number(result.carsAmount)));
 };
 
-export const { setCars } = garageSlice.actions;
+export const { setCars, setCarsAmount } = garageSlice.actions;
 
 export const selectCurrentCars = (state: RootState) => state.garage.cars;
+export const selectCarsAmount = (state: RootState) => state.garage.carsAmount;
 
 export default garageSlice.reducer;
