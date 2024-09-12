@@ -7,13 +7,16 @@ export enum UrlPath {
   ENGINE = 'engine',
 }
 
+const PAGE_LIMIT = 7;
+
 export default class Api {
-  static async getCars(): Promise<ICar[]> {
-    const url = `${UrlPath.BASE}/${UrlPath.GARAGE}`;
+  static async getCars(page: number, limit: number = PAGE_LIMIT) {
+    const url = `${UrlPath.BASE}/${UrlPath.GARAGE}/?_page=${page}&_limit=${limit}`;
     try {
       const response = await fetch(url);
       const cars: ICar[] = await response.json();
-      return cars;
+      const carsAmount = response.headers.get('X-Total-Count');
+      return { cars, carsAmount };
     } catch (error) {
       throw Error(`${error}`);
     }

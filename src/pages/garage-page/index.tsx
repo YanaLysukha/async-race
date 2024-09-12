@@ -10,7 +10,7 @@ const GaragePage = () => {
   const cars = useAppSelector(selectCurrentCars);
 
   useEffect(() => {
-    dispatch(fetchCars());
+    dispatch(fetchCars(1));
   }, []);
 
   return (

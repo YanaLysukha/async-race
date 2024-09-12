@@ -22,9 +22,9 @@ export const garageSlice = createSlice({
   },
 });
 
-export const fetchCars = () => async (dispatch: AppDispatch) => {
-  const cars = await Api.getCars();
-  dispatch(setCars(cars));
+export const fetchCars = (page: number) => async (dispatch: AppDispatch) => {
+  const cars = await Api.getCars(page);
+  dispatch(setCars(cars.cars));
 };
 
 export const { setCars } = garageSlice.actions;
