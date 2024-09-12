@@ -40,7 +40,7 @@ export const garageSlice = createSlice({
   },
 });
 
-export const fetchCars = (page: number) => async (dispatch: AppDispatch) => {
+export const fetchCarsOnCurrentPage = (page: number) => async (dispatch: AppDispatch) => {
   const result = await Api.getCars(page);
   const carsAmount = Number(result.carsAmount);
   dispatch(setCars(result.cars));
