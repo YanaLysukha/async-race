@@ -31,10 +31,18 @@ const Pagination = () => {
         Page: {currentPage} / {pagesAmount}
       </div>
       <div className="pagination-btn-container">
-        <Button classes="action pagination" onClickHandler={toThePrevPage}>
+        <Button
+          classes="action pagination"
+          onClickHandler={toThePrevPage}
+          disabled={currentPage === 1}
+        >
           <ToTheLeftIcon></ToTheLeftIcon>
         </Button>
-        <Button classes="action pagination" onClickHandler={toTheNextPage}>
+        <Button
+          classes="action pagination"
+          onClickHandler={toTheNextPage}
+          disabled={currentPage === pagesAmount}
+        >
           <ToTheRightIcon></ToTheRightIcon>
         </Button>
       </div>
