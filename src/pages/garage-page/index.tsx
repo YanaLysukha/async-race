@@ -4,6 +4,7 @@ import RaceTrack from '../../components/race-track';
 import './style.scss';
 import { fetchCars, selectCarsAmount, selectCurrentCars } from '../../store/slices/garageSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import Pagination from '../../components/pagination';
 
 const GaragePage = () => {
   const dispatch = useAppDispatch();
@@ -23,6 +24,7 @@ const GaragePage = () => {
           <RaceTrack name={car.name} color={car.color} key={car.id}></RaceTrack>
         ))}
       </div>
+      <Pagination></Pagination>
     </main>
   );
 };

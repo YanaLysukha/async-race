@@ -7,7 +7,7 @@ export enum UrlPath {
   ENGINE = 'engine',
 }
 
-const PAGE_LIMIT = 7;
+export const PAGE_LIMIT = 7;
 
 export default class Api {
   static async getCars(page: number, limit: number = PAGE_LIMIT) {
