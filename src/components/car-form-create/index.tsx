@@ -21,18 +21,18 @@ const CarFormCreate = ({ currentPage }: CarFormCreateProps) => {
     dispatch(fetchCreateCar(createdCar ?? { name: 'New Car', color: '#ffffff' }, currentPage));
   };
 
-  const onChangeCarName = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onCreateCarName = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setCreatedCarName(event?.target.value));
   };
 
-  const onChangeCarColor = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onCreateCarColor = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setCreatedCarColor(event.target.value));
   };
 
   return (
     <div className="form-wrapper">
-      <Input type="text" placeholder="Car Name" onChange={onChangeCarName}></Input>
-      <Input type="color" onChange={onChangeCarColor}></Input>
+      <Input type="text" placeholder="Car Name" onChange={onCreateCarName}></Input>
+      <Input type="color" onChange={onCreateCarColor}></Input>
       <Button text="Create car" classes="basic" onClickHandler={createCar}></Button>
     </div>
   );

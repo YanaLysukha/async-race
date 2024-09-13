@@ -47,6 +47,12 @@ export const garageSlice = createSlice({
     removeSelectedCar: (state) => {
       state.selectedCar = { name: '', color: '#ffffff', id: 0 };
     },
+    setSelectedCarName: (state, action: PayloadAction<string>) => {
+      state.selectedCar = { ...state.selectedCar, name: action.payload };
+    },
+    setSelectedCarColor: (state, action: PayloadAction<string>) => {
+      state.selectedCar = { ...state.selectedCar, color: action.payload };
+    },
 
     // page
     setCurrentPage: (state, action: PayloadAction<number>) => {
@@ -79,6 +85,11 @@ export const fetchDeleteCar = (id: number, page: number) => async (dispatch: App
   dispatch(fetchCarsOnCurrentPage(page));
 };
 
+export const fetchUpdateCar = (carData: ICar, page: number) => async (dispatch: AppDispatch) => {
+  await Api.updateCar(carData);
+  dispatch(fetchCarsOnCurrentPage(page));
+};
+
 export const {
   setCars,
   setCarsAmount,
@@ -88,6 +99,8 @@ export const {
   setCreatedCarColor,
   setSelectedCar,
   removeSelectedCar,
+  setSelectedCarName,
+  setSelectedCarColor,
 } = garageSlice.actions;
 
 export const selectCurrentCars = (state: RootState) => state.garage.cars;
@@ -95,5 +108,6 @@ export const selectCarsAmount = (state: RootState) => state.garage.carsAmount;
 export const selectCurrentPage = (state: RootState) => state.garage.currentPage;
 export const selectPagesAmount = (state: RootState) => state.garage.pagesAmount;
 export const selectCreatedCar = (state: RootState) => state.garage.createdCar;
+export const selectSelectedCar = (state: RootState) => state.garage.selectedCar;
 
 export default garageSlice.reducer;

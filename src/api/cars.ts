@@ -63,8 +63,8 @@ export default class Api {
     }
   }
 
-  static async updateCar(id: number, carData: CarData) {
-    const url = `${UrlPath.BASE}/${UrlPath.GARAGE}/${id}`;
+  static async updateCar(carData: ICar) {
+    const url = `${UrlPath.BASE}/${UrlPath.GARAGE}/${carData.id}`;
     try {
       const response = await fetch(url, {
         method: 'PUT',

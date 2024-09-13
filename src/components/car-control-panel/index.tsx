@@ -11,7 +11,7 @@ const CarControlPanel = ({ currentPage }: CarControlPanelProps) => {
   return (
     <div className="control-panel-wrapper">
       <CarFormCreate currentPage={currentPage}></CarFormCreate>
-      <CarFormEdit></CarFormEdit>
+      <CarFormEdit currentPage={currentPage}></CarFormEdit>
       <div className="control-panel-buttons">
         <Button classes="basic-race" text="Race"></Button>
         <Button classes="basic" text="Reset"></Button>
