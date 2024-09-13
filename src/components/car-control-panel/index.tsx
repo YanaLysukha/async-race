@@ -1,3 +1,5 @@
+import { useAppDispatch } from '../../store/hooks';
+import { fetchGenerateCars } from '../../store/slices/garageSlice';
 import Button from '../button';
 import CarFormCreate from '../car-form-create';
 import CarFormEdit from '../car-form-edit';
@@ -8,6 +10,12 @@ type CarControlPanelProps = {
 };
 
 const CarControlPanel = ({ currentPage }: CarControlPanelProps) => {
+  const dispatch = useAppDispatch();
+
+  const generateCars = () => {
+    dispatch(fetchGenerateCars(currentPage));
+  };
+
   return (
     <div className="control-panel-wrapper">
       <CarFormCreate currentPage={currentPage}></CarFormCreate>
@@ -15,7 +23,7 @@ const CarControlPanel = ({ currentPage }: CarControlPanelProps) => {
       <div className="control-panel-buttons">
         <Button classes="basic-race" text="Race"></Button>
         <Button classes="basic" text="Reset"></Button>
-        <Button classes="basic" text="Generate cars"></Button>
+        <Button classes="basic" text="Generate cars" onClickHandler={generateCars}></Button>
       </div>
     </div>
   );

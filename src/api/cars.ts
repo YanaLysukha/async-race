@@ -9,6 +9,8 @@ export enum UrlPath {
 
 export const PAGE_LIMIT = 7;
 
+export const GENERATE_CARS_NUMBER = 20;
+
 export default class Api {
   static async getCars(page: number, limit: number = PAGE_LIMIT) {
     const url = `${UrlPath.BASE}/${UrlPath.GARAGE}/?_page=${page}&_limit=${limit}`;

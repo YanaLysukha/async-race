@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { CarData, ICar } from '../../types';
 import { AppDispatch, RootState } from '..';
-import Api, { PAGE_LIMIT } from '../../api/cars';
+import Api, { GENERATE_CARS_NUMBER, PAGE_LIMIT } from '../../api/cars';
+import { getRandomCarColor, getRandomCarName } from '../../helpers';
 
 interface IGarageState {
   cars: ICar[];
@@ -89,6 +90,18 @@ export const fetchUpdateCar = (carData: ICar, page: number) => async (dispatch: 
   await Api.updateCar(carData);
   dispatch(removeSelectedCar());
   dispatch(fetchCarsOnCurrentPage(page));
+};
+
+export const fetchGenerateCars = (page: number) => async (dispatch: AppDispatch) => {
+  try {
+    const carsPromise: Promise<ICar[]>[] = Array.from(Array(GENERATE_CARS_NUMBER)).map(() =>
+      Api.createCar({ name: getRandomCarName(), color: getRandomCarColor() }),
+    );
+    await Promise.all(carsPromise);
+    dispatch(fetchCarsOnCurrentPage(page));
+  } catch (error) {
+    throw Error(`${error}`);
+  }
 };
 
 export const {
