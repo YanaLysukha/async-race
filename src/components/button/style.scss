@@ -2,6 +2,7 @@
 
 @mixin button {
   font-family: $font-family;
+  font-weight: 500;
   background-color: transparent;
   border: 1px solid $track-background;
   border-radius: 5px;

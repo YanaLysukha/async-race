@@ -1,3 +1,5 @@
+import { useAppDispatch } from '../../store/hooks';
+import { fetchDeleteCar } from '../../store/slices/garageSlice';
 import Button from '../button';
 import CarIcon from '../car';
 import DeleteIcon from '../icons/delete-icon';
@@ -7,20 +9,30 @@ import StopIcon from '../icons/stop-icon';
 import './style.scss';
 
 type RaceTrackProps = {
-  name: string;
-  color: string;
+  carData: {
+    name: string;
+    color: string;
+    id: number;
+  };
+  currentPage: number;
 };
 
-const RaceTrack = ({ name, color }: RaceTrackProps) => {
+const RaceTrack = ({ carData, currentPage }: RaceTrackProps) => {
+  const dispatch = useAppDispatch();
+
+  const deleteCar = () => {
+    dispatch(fetchDeleteCar(carData.id, currentPage));
+  };
+
   return (
     <div className="race-track-wrapper">
       <div className="race-track-info">
-        <h3 className="car-name">{name}</h3>
+        <h3 className="car-name">{carData.name}</h3>
         <div className="car-btn-container">
           <Button classes="select" text="Edit">
             <EditIcon></EditIcon>
           </Button>
-          <Button classes="select" text="Delete">
+          <Button classes="select" text="Delete" onClickHandler={deleteCar}>
             <DeleteIcon></DeleteIcon>
           </Button>
         </div>
@@ -34,7 +46,7 @@ const RaceTrack = ({ name, color }: RaceTrackProps) => {
             <StopIcon></StopIcon>
           </Button>
         </div>
-        <CarIcon carColor={color} />
+        <CarIcon carColor={carData.color} />
       </div>
     </div>
   );

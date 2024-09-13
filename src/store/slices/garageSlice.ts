@@ -10,6 +10,7 @@ interface IGarageState {
   currentPage: number;
   pagesAmount: number;
   createdCar: CarData;
+  selectedCar: ICar;
 }
 
 const initialState: IGarageState = {
@@ -18,6 +19,7 @@ const initialState: IGarageState = {
   currentPage: 1,
   pagesAmount: 1,
   createdCar: { name: '', color: '#ffffff' },
+  selectedCar: { name: '', color: '#ffffff', id: 0 },
 };
 
 export const garageSlice = createSlice({
@@ -36,6 +38,14 @@ export const garageSlice = createSlice({
     },
     setCreatedCarColor: (state, action: PayloadAction<string>) => {
       state.createdCar.color = action.payload;
+    },
+
+    // selected car
+    setSelectedCar: (state, action: PayloadAction<ICar>) => {
+      state.selectedCar = action.payload;
+    },
+    removeSelectedCar: (state) => {
+      state.selectedCar = { name: '', color: '#ffffff', id: 0 };
     },
 
     // page
@@ -64,6 +74,11 @@ export const fetchCreateCar =
     dispatch(fetchCarsOnCurrentPage(page));
   };
 
+export const fetchDeleteCar = (id: number, page: number) => async (dispatch: AppDispatch) => {
+  await Api.deleteCar(id);
+  dispatch(fetchCarsOnCurrentPage(page));
+};
+
 export const {
   setCars,
   setCarsAmount,
@@ -71,6 +86,8 @@ export const {
   setPagesAmount,
   setCreatedCarName,
   setCreatedCarColor,
+  setSelectedCar,
+  removeSelectedCar,
 } = garageSlice.actions;
 
 export const selectCurrentCars = (state: RootState) => state.garage.cars;

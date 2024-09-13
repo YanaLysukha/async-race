@@ -29,7 +29,7 @@ const GaragePage = () => {
       <div className="cars-amount">Cars in garage: {carsAmount}</div>
       <div className="tracks-container">
         {cars.map((car) => (
-          <RaceTrack name={car.name} color={car.color} key={car.id}></RaceTrack>
+          <RaceTrack carData={car} key={car.id} currentPage={currentPage}></RaceTrack>
         ))}
       </div>
       <Pagination></Pagination>
