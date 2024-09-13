@@ -36,11 +36,17 @@ const CarFormEdit = ({ currentPage }: CarFormEditProps) => {
     <div className="form-wrapper">
       <Input
         type="text"
+        value={selectedCar.name}
         placeholder="Car Name"
         disabled={selectedCar.id === 0}
         onChange={onEditCarName}
       ></Input>
-      <Input type="color" disabled={selectedCar.id === 0} onChange={onEditCarColor}></Input>
+      <Input
+        type="color"
+        value={selectedCar.color}
+        disabled={selectedCar.id === 0}
+        onChange={onEditCarColor}
+      ></Input>
       <Button
         text="Edit car"
         classes="basic"
