@@ -14,8 +14,8 @@
   }
 
   &:disabled {
-    border: none;
-    background-color: $disabled;
+    border: 2px solid $neutral-background;
+    background-color: $neutral-background;
     &::placeholder {
       color: $primary-color;
     }

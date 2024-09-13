@@ -18,6 +18,9 @@ const CarFormEdit = ({ currentPage }: CarFormEditProps) => {
   const selectedCar = useAppSelector(selectSelectedCar);
 
   const updateCar = () => {
+    if (selectedCar.id === 0) {
+      return;
+    }
     dispatch(fetchUpdateCar(selectedCar, currentPage));
   };
 

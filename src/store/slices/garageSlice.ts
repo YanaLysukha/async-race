@@ -87,6 +87,7 @@ export const fetchDeleteCar = (id: number, page: number) => async (dispatch: App
 
 export const fetchUpdateCar = (carData: ICar, page: number) => async (dispatch: AppDispatch) => {
   await Api.updateCar(carData);
+  dispatch(removeSelectedCar());
   dispatch(fetchCarsOnCurrentPage(page));
 };
 
