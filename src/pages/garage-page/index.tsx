@@ -25,7 +25,7 @@ const GaragePage = () => {
 
   return (
     <main className="page-container">
-      <CarControlPanel></CarControlPanel>
+      <CarControlPanel currentPage={currentPage}></CarControlPanel>
       <div className="cars-amount">Cars in garage: {carsAmount}</div>
       <div className="tracks-container">
         {cars.map((car) => (

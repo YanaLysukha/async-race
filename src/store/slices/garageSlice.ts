@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { ICar } from '../../types';
+import { CarData, ICar } from '../../types';
 import { AppDispatch, RootState } from '..';
 import Api, { PAGE_LIMIT } from '../../api/cars';
 
@@ -9,6 +9,7 @@ interface IGarageState {
   carsAmount: number;
   currentPage: number;
   pagesAmount: number;
+  createdCar: CarData;
 }
 
 const initialState: IGarageState = {
@@ -16,6 +17,7 @@ const initialState: IGarageState = {
   carsAmount: 0,
   currentPage: 1,
   pagesAmount: 1,
+  createdCar: { name: '', color: '#ffffff' },
 };
 
 export const garageSlice = createSlice({
@@ -28,6 +30,12 @@ export const garageSlice = createSlice({
     },
     setCarsAmount: (state, action: PayloadAction<number>) => {
       state.carsAmount = action.payload;
+    },
+    setCreatedCarName: (state, action: PayloadAction<string>) => {
+      state.createdCar.name = action.payload;
+    },
+    setCreatedCarColor: (state, action: PayloadAction<string>) => {
+      state.createdCar.color = action.payload;
     },
 
     // page
@@ -50,11 +58,25 @@ export const fetchCarsOnCurrentPage = (page: number) => async (dispatch: AppDisp
   dispatch(setPagesAmount(pagesAmount));
 };
 
-export const { setCars, setCarsAmount, setCurrentPage, setPagesAmount } = garageSlice.actions;
+export const fetchCreateCar =
+  (carData: CarData, page: number) => async (dispatch: AppDispatch) => {
+    await Api.createCar(carData);
+    dispatch(fetchCarsOnCurrentPage(page));
+  };
+
+export const {
+  setCars,
+  setCarsAmount,
+  setCurrentPage,
+  setPagesAmount,
+  setCreatedCarName,
+  setCreatedCarColor,
+} = garageSlice.actions;
 
 export const selectCurrentCars = (state: RootState) => state.garage.cars;
 export const selectCarsAmount = (state: RootState) => state.garage.carsAmount;
 export const selectCurrentPage = (state: RootState) => state.garage.currentPage;
 export const selectPagesAmount = (state: RootState) => state.garage.pagesAmount;
+export const selectCreatedCar = (state: RootState) => state.garage.createdCar;
 
 export default garageSlice.reducer;

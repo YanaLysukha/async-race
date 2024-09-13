@@ -3,10 +3,14 @@ import CarFormCreate from '../car-form-create';
 import CarFormEdit from '../car-form-edit';
 import './style.scss';
 
-const CarControlPanel = () => {
+type CarControlPanelProps = {
+  currentPage: number;
+};
+
+const CarControlPanel = ({ currentPage }: CarControlPanelProps) => {
   return (
     <div className="control-panel-wrapper">
-      <CarFormCreate></CarFormCreate>
+      <CarFormCreate currentPage={currentPage}></CarFormCreate>
       <CarFormEdit></CarFormEdit>
       <div className="control-panel-buttons">
         <Button classes="basic-race" text="Race"></Button>
