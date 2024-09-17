@@ -14,3 +14,8 @@ export type CarData = {
   name: string;
   color: string;
 };
+
+export type IEngine = {
+  velocity: number;
+  distance: number;
+};

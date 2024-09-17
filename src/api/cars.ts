@@ -1,15 +1,5 @@
 import { CarData, ICar } from '../types';
-
-export enum UrlPath {
-  BASE = 'http://127.0.0.1:3000',
-  GARAGE = 'garage',
-  WINNERS = 'winners',
-  ENGINE = 'engine',
-}
-
-export const PAGE_LIMIT = 7;
-
-export const GENERATE_CARS_NUMBER = 20;
+import { PAGE_LIMIT, UrlPath } from './data';
 
 export default class Api {
   static async getCars(page: number, limit: number = PAGE_LIMIT) {

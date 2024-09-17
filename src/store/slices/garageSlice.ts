@@ -2,8 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { CarData, ICar } from '../../types';
 import { AppDispatch, RootState } from '..';
-import Api, { GENERATE_CARS_NUMBER, PAGE_LIMIT } from '../../api/cars';
+import Api from '../../api/cars';
 import { getRandomCarColor, getRandomCarName } from '../../helpers';
+import { GENERATE_CARS_NUMBER, PAGE_LIMIT } from '../../api/data';
 
 interface IGarageState {
   cars: ICar[];
