@@ -2,11 +2,9 @@ import { useAppDispatch } from '../../store/hooks';
 import { fetchDeleteCar, setSelectedCar } from '../../store/slices/garageSlice';
 import { ICar } from '../../types';
 import Button from '../button';
-import CarIcon from '../car';
 import DeleteIcon from '../icons/delete-icon';
 import EditIcon from '../icons/edit-icon';
-import StartIcon from '../icons/start-icon';
-import StopIcon from '../icons/stop-icon';
+import Racer from '../racer';
 import './style.scss';
 
 type RaceTrackProps = {
@@ -38,17 +36,7 @@ const RaceTrack = ({ carData, currentPage }: RaceTrackProps) => {
           </Button>
         </div>
       </div>
-      <div className="race-track">
-        <div className="race-btn-container">
-          <Button classes="action">
-            <StartIcon></StartIcon>
-          </Button>
-          <Button classes="action">
-            <StopIcon></StopIcon>
-          </Button>
-        </div>
-        <CarIcon carColor={carData.color} />
-      </div>
+      <Racer carData={carData}></Racer>
     </div>
   );
 };
