@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ICar } from '../../types';
 import Button from '../button';
 import CarIcon from '../car';
@@ -12,95 +12,63 @@ type RacerProps = {
 };
 
 const Racer = ({ carData }: RacerProps) => {
-  const [status, setStatus] = useState<'stopped' | 'drive'>('stopped');
-  const [velocity, setVelocity] = useState<number>(0);
-  const [distance, setDistance] = useState<number>(0);
-  const carRef = useRef<HTMLDivElement>(null);
-  const raceTrackRef = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState<number>(0);
-  const [time, setTime] = useState<number>(0);
-
-  useEffect(() => {
-    if (status === 'drive' && velocity > 0 && distance > 0) {
-      startAnimation();
-    }
-  }, [status, velocity, distance]);
+  const [time, setTime] = useState(0);
+  const [isDriving, setIsDriving] = useState(false);
+  const [position, setPosition] = useState(0);
 
   useEffect(() => {
     drive();
-  }, [status]);
+  }, [isDriving]);
 
   const drive = async () => {
-    if (status === 'drive') {
+    if (isDriving) {
       const { success } = await Api.drive(carData.id);
       if (!success) {
-        setStatus('stopped');
         setTime(0);
+        setIsDriving(false);
       }
     }
   };
 
-  const startEngine = async () => {
-    const { distance, velocity } = await Api.startEngine(carData.id);
-    setVelocity(velocity);
-    setDistance(distance);
-    setStatus('drive');
+  const startRace = async () => {
+    const { velocity, distance } = await Api.startEngine(carData.id);
+    setIsDriving(true);
+    const animationTime = parseInt((distance / velocity).toString(), 10);
+    const trackWidth = window.innerWidth - 260;
+    setTime(animationTime);
+    setPosition(trackWidth);
   };
 
-  const startAnimation = () => {
-    const totalDistance = 50000;
-    const distancePerSecond = (velocity / distance) * totalDistance;
-    let currentPosition = 0;
-    const time = distance / velocity / 1000;
-    setTime(time);
-
-    const animate = () => {
-      if (currentPosition < totalDistance && status === 'drive') {
-        currentPosition += distancePerSecond;
-        setPosition(currentPosition);
-        if (carRef.current) {
-          carRef.current.style.transform = `translateX(${currentPosition}px)`;
-        }
-        if (Math.random() < 0.02) {
-          setStatus('stopped');
-          return;
-        }
-        requestAnimationFrame(animate);
-      } else {
-        setStatus('stopped');
-      }
-    };
-
-    requestAnimationFrame(animate);
+  const stopRace = async () => {
+    await Api.stopEngine(carData.id);
+    setIsDriving(false);
+    setPosition(0);
+    setTime(0);
   };
 
   const handleStartClick = () => {
-    console.log('start');
-    if (status === 'stopped') {
-      startEngine();
-    }
+    startRace();
   };
 
   const handleStopClick = () => {
-    console.log('stop');
+    stopRace();
   };
 
   return (
-    <div ref={raceTrackRef} className="race-track">
+    <div className="race-track">
       <div className="race-btn-container">
-        <Button classes="action" onClickHandler={handleStartClick}>
+        <Button classes="action" onClickHandler={handleStartClick} disabled={isDriving}>
           <StartIcon></StartIcon>
         </Button>
-        <Button classes="action" onClickHandler={handleStopClick}>
+        <Button classes="action" onClickHandler={handleStopClick} disabled={!isDriving}>
           <StopIcon></StopIcon>
         </Button>
       </div>
       <div
         className="car-container"
-        ref={carRef}
         style={{
           transform: `translateX(${position}px)`,
-          transition: `${time} linear`,
+          transition: `${time}ms linear`,
         }}
       >
         <CarIcon carColor={carData.color} />
