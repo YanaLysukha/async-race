@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ICar } from '../../types';
 import Button from '../button';
 import CarIcon from '../car';
@@ -12,9 +12,9 @@ type RacerProps = {
 };
 
 const Racer = ({ carData }: RacerProps) => {
-  const [time, setTime] = useState(0);
   const [isDriving, setIsDriving] = useState(false);
   const [position, setPosition] = useState(0);
+  const animationId = useRef<number>(0);
 
   useEffect(() => {
     drive();
@@ -24,26 +24,49 @@ const Racer = ({ carData }: RacerProps) => {
     if (isDriving) {
       const { success } = await Api.drive(carData.id);
       if (!success) {
-        setTime(0);
         setIsDriving(false);
+        cancelAnimationFrame(animationId.current);
       }
     }
+  };
+
+  const animateRace = (velocity: number, distance: number) => {
+    let done = false;
+    let start: number;
+    let previousTimeStamp: number;
+    const sumOfIndents = 260;
+    const time = distance / velocity;
+    const trackWidth = window.innerWidth - sumOfIndents;
+    const frameVelocity = trackWidth / time;
+
+    function step(timeStamp: number) {
+      if (start === undefined) start = timeStamp;
+      const elapsed = timeStamp - start;
+
+      if (previousTimeStamp !== timeStamp) {
+        const position = Math.min(frameVelocity * elapsed, trackWidth);
+        setPosition(position);
+        if (position === trackWidth) done = true;
+      }
+
+      if (!done) {
+        animationId.current = requestAnimationFrame(step);
+      }
+    }
+    animationId.current = requestAnimationFrame(step);
   };
 
   const startRace = async () => {
     const { velocity, distance } = await Api.startEngine(carData.id);
     setIsDriving(true);
-    const animationTime = parseInt((distance / velocity).toString(), 10);
-    const trackWidth = window.innerWidth - 260;
-    setTime(animationTime);
-    setPosition(trackWidth);
+    animateRace(velocity, distance);
   };
 
   const stopRace = async () => {
     await Api.stopEngine(carData.id);
     setIsDriving(false);
     setPosition(0);
-    setTime(0);
+    cancelAnimationFrame(animationId.current);
   };
 
   const handleStartClick = () => {
@@ -68,7 +91,6 @@ const Racer = ({ carData }: RacerProps) => {
         className="car-container"
         style={{
           transform: `translateX(${position}px)`,
-          transition: `${time}ms linear`,
         }}
       >
         <CarIcon carColor={carData.color} />
