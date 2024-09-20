@@ -34,10 +34,11 @@ export default class Api {
       const response = await fetch(url, {
         method: 'PATCH',
       });
-      const engineResult: IEngine = await response.json();
+      const engineResult = await response.json();
       return engineResult;
     } catch (error) {
-      throw Error(`${error}`);
+      console.error(error);
+      return { success: false };
     }
   }
 }
