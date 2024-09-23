@@ -31,9 +31,8 @@ const Racer = ({ carData }: RacerProps) => {
   };
 
   const animateRace = (velocity: number, distance: number) => {
-    let done = false;
     let start: number;
-    let previousTimeStamp: number;
+    let finished = false;
     const sumOfIndents = 260;
     const time = distance / velocity;
     const trackWidth = window.innerWidth - sumOfIndents;
@@ -43,13 +42,14 @@ const Racer = ({ carData }: RacerProps) => {
       if (start === undefined) start = timeStamp;
       const elapsed = timeStamp - start;
 
-      if (previousTimeStamp !== timeStamp) {
-        const position = Math.min(frameVelocity * elapsed, trackWidth);
-        setPosition(position);
-        if (position === trackWidth) done = true;
+      const position = Math.min(frameVelocity * elapsed, trackWidth);
+      setPosition(position);
+      if (position === trackWidth) {
+        finished = true;
+        setIsDriving(false);
       }
 
-      if (!done) {
+      if (!finished) {
         animationId.current = requestAnimationFrame(step);
       }
     }
@@ -63,10 +63,12 @@ const Racer = ({ carData }: RacerProps) => {
   };
 
   const stopRace = async () => {
-    await Api.stopEngine(carData.id);
-    setIsDriving(false);
-    setPosition(0);
-    cancelAnimationFrame(animationId.current);
+    if (isDriving) {
+      await Api.stopEngine(carData.id);
+      setIsDriving(false);
+      setPosition(0);
+      cancelAnimationFrame(animationId.current);
+    }
   };
 
   const handleStartClick = () => {
