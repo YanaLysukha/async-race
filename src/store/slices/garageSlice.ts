@@ -6,6 +6,19 @@ import Api from '../../api/cars';
 import { getRandomCarColor, getRandomCarName } from '../../helpers';
 import { GENERATE_CARS_NUMBER, PAGE_LIMIT } from '../../api/data';
 
+export enum RaceStatus {
+  INIT = 'initial',
+  START = 'start',
+  END = 'end',
+  PAUSE = 'pause',
+}
+
+export type RacerAnimationType = {
+  id: number;
+  position: number;
+  active?: boolean;
+};
+
 interface IGarageState {
   cars: ICar[];
   carsAmount: number;
@@ -13,6 +26,8 @@ interface IGarageState {
   pagesAmount: number;
   createdCar: CarData;
   selectedCar: ICar;
+  raceStatus: string;
+  racersAnimation: RacerAnimationType[];
 }
 
 const initialState: IGarageState = {
@@ -22,6 +37,8 @@ const initialState: IGarageState = {
   pagesAmount: 1,
   createdCar: { name: '', color: '#ffffff' },
   selectedCar: { name: '', color: '#ffffff', id: 0 },
+  raceStatus: RaceStatus.INIT,
+  racersAnimation: [],
 };
 
 export const garageSlice = createSlice({
@@ -62,6 +79,24 @@ export const garageSlice = createSlice({
     },
     setPagesAmount: (state, action: PayloadAction<number>) => {
       state.pagesAmount = action.payload;
+    },
+
+    // race
+    setRaceStatus: (state, action: PayloadAction<RaceStatus>) => {
+      state.raceStatus = action.payload;
+    },
+
+    setRacerAnimation: (state, action: PayloadAction<RacerAnimationType>) => {
+      state.racersAnimation = [...state.racersAnimation, action.payload];
+    },
+
+    updateRacerAnimation: (state, action: PayloadAction<RacerAnimationType>) => {
+      const newState = state.racersAnimation.filter((item) => item.id !== action.payload.id);
+      state.racersAnimation = [...newState, action.payload];
+    },
+
+    clearRacerAnimation: (state) => {
+      state.racersAnimation = [];
     },
   },
 });
@@ -116,6 +151,10 @@ export const {
   removeSelectedCar,
   setSelectedCarName,
   setSelectedCarColor,
+  setRaceStatus,
+  setRacerAnimation,
+  updateRacerAnimation,
+  clearRacerAnimation,
 } = garageSlice.actions;
 
 export const selectCurrentCars = (state: RootState) => state.garage.cars;
@@ -124,5 +163,7 @@ export const selectCurrentPage = (state: RootState) => state.garage.currentPage;
 export const selectPagesAmount = (state: RootState) => state.garage.pagesAmount;
 export const selectCreatedCar = (state: RootState) => state.garage.createdCar;
 export const selectSelectedCar = (state: RootState) => state.garage.selectedCar;
+export const selectRaceStatus = (state: RootState) => state.garage.raceStatus;
+export const selectRaceAnimation = (state: RootState) => state.garage.racersAnimation;
 
 export default garageSlice.reducer;

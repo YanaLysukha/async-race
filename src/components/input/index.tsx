@@ -2,7 +2,7 @@ import './style.scss';
 
 type InputProps = {
   type: string;
-  value: string;
+  value?: string;
   disabled?: boolean;
   placeholder?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
