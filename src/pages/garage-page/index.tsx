@@ -4,9 +4,11 @@ import RaceTrack from '../../components/race-track';
 import './style.scss';
 import {
   fetchCarsOnCurrentPage,
+  RaceStatus,
   selectCarsAmount,
   selectCurrentCars,
   selectCurrentPage,
+  setRaceStatus,
 } from '../../store/slices/garageSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import Pagination from '../../components/pagination';
@@ -21,6 +23,7 @@ const GaragePage = () => {
 
   useEffect(() => {
     dispatch(fetchCarsOnCurrentPage(currentPage));
+    dispatch(setRaceStatus(RaceStatus.INIT));
   }, []);
 
   return (

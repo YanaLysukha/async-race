@@ -1,5 +1,10 @@
-import { useAppDispatch } from '../../store/hooks';
-import { fetchGenerateCars, RaceStatus, setRaceStatus } from '../../store/slices/garageSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import {
+  fetchGenerateCars,
+  RaceStatus,
+  selectRaceStatus,
+  setRaceStatus,
+} from '../../store/slices/garageSlice';
 import Button from '../button';
 import CarFormCreate from '../car-form-create';
 import CarFormEdit from '../car-form-edit';
@@ -11,6 +16,7 @@ type CarControlPanelProps = {
 
 const CarControlPanel = ({ currentPage }: CarControlPanelProps) => {
   const dispatch = useAppDispatch();
+  const raceStatus = useAppSelector(selectRaceStatus);
 
   const generateCars = () => {
     dispatch(fetchGenerateCars(currentPage));
@@ -29,8 +35,18 @@ const CarControlPanel = ({ currentPage }: CarControlPanelProps) => {
       <CarFormCreate currentPage={currentPage}></CarFormCreate>
       <CarFormEdit currentPage={currentPage}></CarFormEdit>
       <div className="control-panel-buttons">
-        <Button classes="basic-race" text="Race" onClickHandler={startRace}></Button>
-        <Button classes="basic" text="Reset" onClickHandler={resetRace}></Button>
+        <Button
+          classes="basic-race"
+          text="Race"
+          onClickHandler={startRace}
+          disabled={raceStatus === RaceStatus.RACE}
+        ></Button>
+        <Button
+          classes="basic"
+          text="Reset"
+          onClickHandler={resetRace}
+          disabled={raceStatus === RaceStatus.RESET || raceStatus === RaceStatus.INIT}
+        ></Button>
         <Button classes="basic" text="Generate cars" onClickHandler={generateCars}></Button>
       </div>
     </div>

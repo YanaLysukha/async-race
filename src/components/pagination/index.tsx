@@ -1,9 +1,11 @@
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
   fetchCarsOnCurrentPage,
+  RaceStatus,
   selectCurrentPage,
   selectPagesAmount,
   setCurrentPage,
+  setRaceStatus,
 } from '../../store/slices/garageSlice';
 import Button from '../button';
 import ToTheLeftIcon from '../icons/to-the-left-icon';
@@ -15,14 +17,20 @@ const Pagination = () => {
   const pagesAmount = useAppSelector(selectPagesAmount);
   const currentPage = useAppSelector(selectCurrentPage);
 
+  const resetRace = () => {
+    dispatch(setRaceStatus(RaceStatus.INIT));
+  };
+
   const toTheNextPage = async () => {
     dispatch(setCurrentPage(currentPage + 1));
     dispatch(fetchCarsOnCurrentPage(currentPage + 1));
+    resetRace();
   };
 
   const toThePrevPage = () => {
     dispatch(setCurrentPage(currentPage - 1));
     dispatch(fetchCarsOnCurrentPage(currentPage - 1));
+    resetRace();
   };
 
   return (
