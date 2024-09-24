@@ -1,5 +1,5 @@
 import { useAppDispatch } from '../../store/hooks';
-import { fetchGenerateCars } from '../../store/slices/garageSlice';
+import { fetchGenerateCars, RaceStatus, setRaceStatus } from '../../store/slices/garageSlice';
 import Button from '../button';
 import CarFormCreate from '../car-form-create';
 import CarFormEdit from '../car-form-edit';
@@ -16,13 +16,21 @@ const CarControlPanel = ({ currentPage }: CarControlPanelProps) => {
     dispatch(fetchGenerateCars(currentPage));
   };
 
+  const startRace = () => {
+    dispatch(setRaceStatus(RaceStatus.RACE));
+  };
+
+  const resetRace = () => {
+    dispatch(setRaceStatus(RaceStatus.RESET));
+  };
+
   return (
     <div className="control-panel-wrapper">
       <CarFormCreate currentPage={currentPage}></CarFormCreate>
       <CarFormEdit currentPage={currentPage}></CarFormEdit>
       <div className="control-panel-buttons">
-        <Button classes="basic-race" text="Race"></Button>
-        <Button classes="basic" text="Reset"></Button>
+        <Button classes="basic-race" text="Race" onClickHandler={startRace}></Button>
+        <Button classes="basic" text="Reset" onClickHandler={resetRace}></Button>
         <Button classes="basic" text="Generate cars" onClickHandler={generateCars}></Button>
       </div>
     </div>

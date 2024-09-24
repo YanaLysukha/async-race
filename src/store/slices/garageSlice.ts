@@ -8,9 +8,8 @@ import { GENERATE_CARS_NUMBER, PAGE_LIMIT } from '../../api/data';
 
 export enum RaceStatus {
   INIT = 'initial',
-  START = 'start',
-  END = 'end',
-  PAUSE = 'pause',
+  RACE = 'race',
+  RESET = 'reset',
 }
 
 export type RacerAnimationType = {

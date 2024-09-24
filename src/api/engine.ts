@@ -34,6 +34,11 @@ export default class Api {
       const response = await fetch(url, {
         method: 'PATCH',
       });
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error(`Server error: ${response.status} - ${errorText}`);
+        return { success: false, message: errorText };
+      }
       const engineResult = await response.json();
       return engineResult;
     } catch (error) {

@@ -6,6 +6,8 @@ import StartIcon from '../icons/start-icon';
 import StopIcon from '../icons/stop-icon';
 import './style.scss';
 import Api from '../../api/engine';
+import { useAppSelector } from '../../store/hooks';
+import { RaceStatus, selectRaceStatus } from '../../store/slices/garageSlice';
 
 type RacerProps = {
   carData: ICar;
@@ -15,10 +17,22 @@ const Racer = ({ carData }: RacerProps) => {
   const [isDriving, setIsDriving] = useState(false);
   const [position, setPosition] = useState(0);
   const animationId = useRef<number>(0);
+  const raceStatus = useAppSelector(selectRaceStatus);
 
   useEffect(() => {
     drive();
   }, [isDriving]);
+
+  useEffect(() => {
+    switch (raceStatus) {
+      case RaceStatus.RACE:
+        startRace();
+        break;
+      case RaceStatus.RESET:
+        stopRace();
+        break;
+    }
+  }, [raceStatus]);
 
   const drive = async () => {
     if (isDriving) {
