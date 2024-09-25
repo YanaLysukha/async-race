@@ -12,5 +12,6 @@ export enum engineStatus {
 }
 
 export const PAGE_LIMIT = 7;
+export const WINNERS_PAGE_LIMIT = 10;
 
 export const GENERATE_CARS_NUMBER = 20;
