@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '..';
+import { AppDispatch, RootState } from '..';
 import { IWinner } from '../../types';
+import WinnersApi from '../../api/winners';
 
 export interface IWinnerInfo extends IWinner {
   name: string;
@@ -59,6 +60,10 @@ export const winnersSlice = createSlice({
 });
 
 export const { setWinner, setWinners, setRaceFinished, resetWinner } = winnersSlice.actions;
+
+export const fetchCreateWinner = (winnerData: IWinner) => async (dispatch: AppDispatch) => {
+  await WinnersApi.createWinner(winnerData);
+};
 
 export const selectWinners = (state: RootState) => state.winners.winners;
 export const selectRaceWinner = (state: RootState) => state.winners.newWinner;

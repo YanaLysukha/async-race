@@ -1,5 +1,6 @@
+import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { selectRaceWinner } from '../../store/slices/winnersSlice';
+import { fetchCreateWinner, selectRaceWinner } from '../../store/slices/winnersSlice';
 import './style.scss';
 
 const WinnerModal = () => {
@@ -7,6 +8,12 @@ const WinnerModal = () => {
   const raceWinner = useAppSelector(selectRaceWinner);
   const { id, time, name } = raceWinner;
   const timeInSec = (time / 1000).toFixed(2);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchCreateWinner({ id, wins: 1, time }));
+    }
+  }, [id]);
 
   return (
     <div className={`${id ? 'modal-container' : 'hidden'}`}>
