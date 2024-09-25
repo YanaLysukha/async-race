@@ -1,9 +1,8 @@
 @use '../../index.scss' as *;
 
 @mixin text-decoration {
-  text-decoration: underline;
+  text-decoration: underline 0.1rem;
   text-underline-offset: 0.4rem;
-  color: $accent-color;
 }
 
 .header {
@@ -11,6 +10,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 2rem 4rem;
+  font-weight: 500;
 }
 
 .navigation-list {
@@ -28,11 +28,15 @@
   font-size: 1.3rem;
 }
 
+a {
+  text-decoration: none;
+}
+
 .nav-link {
   color: $accent-color;
   font-weight: 500;
   font-size: 1.05rem;
-  text-underline-offset: 0.4rem;
+  transition: all 0.4s;
 
   &:hover {
     @include text-decoration;
