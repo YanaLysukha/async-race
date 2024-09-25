@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IWinner } from '../../types';
 import { RootState } from '..';
+import { IWinner } from '../../types';
 
 export interface IWinnerInfo extends IWinner {
   name: string;
@@ -17,6 +17,7 @@ interface IWinnersState {
   winners: IWinnerInfo[];
   winnersAmount: number;
   newWinner: NewRaceWinner;
+  isRaceFinished: boolean;
 }
 
 export const initialState: IWinnersState = {
@@ -27,6 +28,7 @@ export const initialState: IWinnersState = {
     name: '',
     time: 0,
   },
+  isRaceFinished: false,
 };
 
 export const winnersSlice = createSlice({
@@ -34,17 +36,32 @@ export const winnersSlice = createSlice({
   initialState,
   reducers: {
     setWinner: (state, action: PayloadAction<NewRaceWinner>) => {
-      state.newWinner = action.payload;
+      if (!state.isRaceFinished) {
+        state.newWinner = action.payload;
+        state.isRaceFinished = true;
+      }
+    },
+    resetWinner: (state) => {
+      state.newWinner = {
+        id: null,
+        name: '',
+        time: 0,
+      };
+      state.isRaceFinished = false;
     },
     setWinners: (state, action: PayloadAction<IWinnerInfo[]>) => {
       state.winners = action.payload;
     },
+    setRaceFinished: (state, action: PayloadAction<boolean>) => {
+      state.isRaceFinished = action.payload;
+    },
   },
 });
 
-export const { setWinner, setWinners } = winnersSlice.actions;
+export const { setWinner, setWinners, setRaceFinished, resetWinner } = winnersSlice.actions;
 
 export const selectWinners = (state: RootState) => state.winners.winners;
-export const selectNewWinner = (state: RootState) => state.winners.newWinner;
+export const selectRaceWinner = (state: RootState) => state.winners.newWinner;
+export const selectIsRaceFinished = (state: RootState) => state.winners.isRaceFinished;
 
 export default winnersSlice.reducer;

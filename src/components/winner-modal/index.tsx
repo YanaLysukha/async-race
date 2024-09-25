@@ -1,16 +1,9 @@
 import './style.scss';
 
-type WinnerModalProps = {
-  name: string;
-  time: number;
-};
-
-const WinnerModal = ({ name, time }: WinnerModalProps) => {
+const WinnerModal = () => {
   return (
     <div className="modal-container">
-      <p className="modal-message">
-        Winner is {name} - {time}
-      </p>
+      <p className="modal-message">Winner is</p>
     </div>
   );
 };

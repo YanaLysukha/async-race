@@ -10,6 +10,7 @@ export enum RaceStatus {
   INIT = 'initial',
   RACE = 'race',
   RESET = 'reset',
+  END = 'end',
 }
 
 export type RacerAnimationType = {

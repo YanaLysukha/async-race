@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
+import Api from '../../api/engine';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { RaceStatus, selectRaceStatus } from '../../store/slices/garageSlice';
+import { selectIsRaceFinished, setWinner } from '../../store/slices/winnersSlice';
 import { ICar } from '../../types';
 import Button from '../button';
 import CarIcon from '../car';
 import StartIcon from '../icons/start-icon';
 import StopIcon from '../icons/stop-icon';
 import './style.scss';
-import Api from '../../api/engine';
-import { useAppSelector } from '../../store/hooks';
-import { RaceStatus, selectRaceStatus } from '../../store/slices/garageSlice';
 
 type RacerProps = {
   carData: ICar;
@@ -17,7 +18,9 @@ const Racer = ({ carData }: RacerProps) => {
   const [isDriving, setIsDriving] = useState(false);
   const [position, setPosition] = useState(0);
   const animationId = useRef<number>(0);
+  const dispatch = useAppDispatch();
   const raceStatus = useAppSelector(selectRaceStatus);
+  const isRaceFinished = useAppSelector(selectIsRaceFinished);
 
   useEffect(() => {
     drive();
@@ -61,6 +64,7 @@ const Racer = ({ carData }: RacerProps) => {
       if (position === trackWidth) {
         finished = true;
         setIsDriving(false);
+        endAnimation(time);
       }
 
       if (!finished) {
@@ -91,6 +95,18 @@ const Racer = ({ carData }: RacerProps) => {
 
   const handleStopClick = () => {
     stopRace();
+  };
+
+  const endAnimation = (time: number) => {
+    if (!isRaceFinished) {
+      dispatch(
+        setWinner({
+          id: carData.id,
+          name: carData.name,
+          time,
+        }),
+      );
+    }
   };
 
   return (
