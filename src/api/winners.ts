@@ -41,4 +41,34 @@ export default class WinnersApi {
       throw Error(`${error}`);
     }
   }
+
+  static async deleteWinner(id: number) {
+    const url = `${UrlPath.BASE}/${UrlPath.WINNERS}/${id}`;
+    try {
+      const response = await fetch(url, {
+        method: 'DELETE',
+      });
+      const deletedWinner = await response.json();
+      return deletedWinner;
+    } catch (error) {
+      throw Error(`${error}`);
+    }
+  }
+
+  static async updateWinner(winnerData: IWinner) {
+    const url = `${UrlPath.BASE}/${UrlPath.GARAGE}/${winnerData.id}`;
+    try {
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(winnerData),
+      });
+      const updatedWinner: IWinner = await response.json();
+      return updatedWinner;
+    } catch (error) {
+      throw Error(`${error}`);
+    }
+  }
 }
