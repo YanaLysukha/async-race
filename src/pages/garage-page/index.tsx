@@ -12,6 +12,7 @@ import {
 } from '../../store/slices/garageSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import Pagination from '../../components/pagination';
+import WinnerModal from '../../components/winner-modal';
 
 const GaragePage = () => {
   const dispatch = useAppDispatch();
@@ -28,6 +29,7 @@ const GaragePage = () => {
 
   return (
     <main className="page-container">
+      <WinnerModal></WinnerModal>
       <CarControlPanel currentPage={currentPage}></CarControlPanel>
       <div className="cars-amount">Cars in garage: {carsAmount}</div>
       <div className="tracks-container">

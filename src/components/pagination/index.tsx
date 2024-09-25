@@ -7,6 +7,7 @@ import {
   setCurrentPage,
   setRaceStatus,
 } from '../../store/slices/garageSlice';
+import { resetWinner } from '../../store/slices/winnersSlice';
 import Button from '../button';
 import ToTheLeftIcon from '../icons/to-the-left-icon';
 import ToTheRightIcon from '../icons/to-the-right-icon';
@@ -19,6 +20,7 @@ const Pagination = () => {
 
   const resetRace = () => {
     dispatch(setRaceStatus(RaceStatus.INIT));
+    dispatch(resetWinner());
   };
 
   const toTheNextPage = async () => {

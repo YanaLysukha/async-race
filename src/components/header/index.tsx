@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import './style.scss';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { RaceStatus, selectRaceStatus, setRaceStatus } from '../../store/slices/garageSlice';
+import { resetWinner } from '../../store/slices/winnersSlice';
 
 export const Header = () => {
   const dispatch = useAppDispatch();
@@ -10,6 +11,7 @@ export const Header = () => {
   const switchPage = () => {
     if (raceStatus === RaceStatus.RACE) {
       dispatch(setRaceStatus(RaceStatus.INIT));
+      dispatch(resetWinner());
     }
   };
 

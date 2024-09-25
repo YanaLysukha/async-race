@@ -1,8 +1,25 @@
+@use '../../index.scss' as *;
+
 .modal-container {
-  padding: 1.5rem;
-  box-shadow: 2px 2px 28px 3px rgba(227, 116, 91, 1);
+  display: block;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  z-index: 5;
+  padding: 1.3rem 1.1rem;
+  border-radius: 0.8rem;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 2px 2px 20px 2px $race-color;
 }
 
 .modal-message {
-  color: rgba(227, 116, 91, 1);
+  color: $race-color;
+  font-weight: 600;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
 }
