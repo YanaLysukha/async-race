@@ -3,6 +3,7 @@ import { AppDispatch, RootState } from '..';
 import { ICar, IWinner } from '../../types';
 import WinnersApi from '../../api/winners';
 import Api from '../../api/cars';
+import { WINNERS_PAGE_LIMIT } from '../../api/data';
 
 export interface IWinnerInfo extends IWinner {
   name: string;
@@ -20,6 +21,8 @@ interface IWinnersState {
   winnersAmount: number;
   newWinner: NewRaceWinner;
   isRaceFinished: boolean;
+  pageNumber: number;
+  pagesAmount: number;
 }
 
 export const initialState: IWinnersState = {
@@ -31,6 +34,8 @@ export const initialState: IWinnersState = {
     time: 0,
   },
   isRaceFinished: false,
+  pageNumber: 1,
+  pagesAmount: 1,
 };
 
 export const winnersSlice = createSlice({
@@ -63,6 +68,12 @@ export const winnersSlice = createSlice({
     setTotalWinners: (state, action: PayloadAction<number>) => {
       state.winnersAmount = action.payload;
     },
+    setPageNumber: (state, action: PayloadAction<number>) => {
+      state.pageNumber = action.payload;
+    },
+    setPagesAmount: (state, action: PayloadAction<number>) => {
+      state.pagesAmount = action.payload;
+    },
   },
 });
 
@@ -73,6 +84,8 @@ export const {
   resetWinner,
   setWinnersAmount,
   setTotalWinners,
+  setPageNumber,
+  setPagesAmount,
 } = winnersSlice.actions;
 
 export const fetchGetWinners =
@@ -87,6 +100,8 @@ export const fetchGetWinners =
     dispatch(setWinners(winnersInfo));
     if (totalRecords) {
       dispatch(setTotalWinners(+totalRecords));
+      const pagesAmount = Math.ceil(+totalRecords / WINNERS_PAGE_LIMIT);
+      dispatch(setPagesAmount(pagesAmount));
     }
   };
 
@@ -119,5 +134,7 @@ export const selectWinners = (state: RootState) => state.winners.winners;
 export const selectRaceWinner = (state: RootState) => state.winners.newWinner;
 export const selectIsRaceFinished = (state: RootState) => state.winners.isRaceFinished;
 export const selectWinnersAmount = (state: RootState) => state.winners.winnersAmount;
+export const selectPageNumber = (state: RootState) => state.winners.pageNumber;
+export const selectPagesAmount = (state: RootState) => state.winners.pagesAmount;
 
 export default winnersSlice.reducer;
