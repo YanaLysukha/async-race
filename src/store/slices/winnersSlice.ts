@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppDispatch, RootState } from '..';
-import { IWinner } from '../../types';
+import { ICar, IWinner } from '../../types';
 import WinnersApi from '../../api/winners';
 import Api from '../../api/cars';
 
@@ -60,6 +60,9 @@ export const winnersSlice = createSlice({
     setWinnersAmount: (state) => {
       state.winnersAmount += 1;
     },
+    setTotalWinners: (state, action: PayloadAction<number>) => {
+      state.winnersAmount = action.payload;
+    },
   },
 });
 
@@ -70,11 +73,12 @@ export const fetchGetWinners =
   (page: number, sortBy: string, order: string) => async (dispatch: AppDispatch) => {
     const { winners } = await WinnersApi.getWinners(page, sortBy, order);
     const carsPromises = winners.map(async (winner) => {
-      const carData = await Api.getCar(winner.id);
-      const combinedData = { ...winner, ...carData };
+      const carData: ICar = await Api.getCar(winner.id);
+      const combinedData: IWinnerInfo = { ...winner, ...carData };
       return combinedData;
     });
     const winnersInfo: IWinnerInfo[] = await Promise.all(carsPromises);
+    console.log(winnersInfo);
     dispatch(setWinners(winnersInfo));
   };
 
@@ -94,8 +98,8 @@ export const fetchUpdateWinnersTable =
       dispatch(fetchCreateWinner({ id, wins: 1, time }));
     } else {
       const bestTime = Math.min(currentWinner.time, time);
-      const updatedData = {
-        id: currentWinner.id,
+      const updatedData: IWinner = {
+        id: id,
         wins: currentWinner.wins + 1,
         time: bestTime,
       };

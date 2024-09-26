@@ -1,0 +1,34 @@
+@use '../../index.scss' as *;
+
+.table {
+  width: 100%;
+}
+
+.table-head {
+  width: 100%;
+  background-color: $table-header;
+}
+
+.table-head-item {
+  padding: 0.8rem;
+}
+
+.table-row {
+  &:nth-of-type(odd) {
+    background: $track-background;
+  }
+}
+
+.table-row-item {
+    position: relative;
+    padding: 0.8rem 1rem;
+
+  svg {
+    width: 100%;
+    max-width: 110px;
+    height: 60px;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}

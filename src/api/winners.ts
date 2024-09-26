@@ -60,14 +60,14 @@ export default class WinnersApi {
   }
 
   static async updateWinner(winnerData: IWinner) {
-    const url = `${UrlPath.BASE}/${UrlPath.GARAGE}/${winnerData.id}`;
+    const url = `${UrlPath.BASE}/${UrlPath.WINNERS}/${winnerData.id}`;
     try {
       const response = await fetch(url, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(winnerData),
+        body: JSON.stringify({ wins: winnerData.wins, time: winnerData.time }),
       });
       const updatedWinner: IWinner = await response.json();
       return updatedWinner;

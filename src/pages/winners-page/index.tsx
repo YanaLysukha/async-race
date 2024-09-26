@@ -8,11 +8,11 @@ const WinnersPage = () => {
   const winners = useAppSelector(selectWinners);
 
   useEffect(() => {
-    dispatch(fetchGetWinners(1, 'id', 'ASC'));
+    dispatch(fetchGetWinners(1, 'wins', 'ASC'));
   }, []);
 
   return (
-    <main>
+    <main className="page-container">
       <WinnersTable winners={winners}></WinnersTable>
     </main>
   );

@@ -6,7 +6,6 @@ import './style.scss';
 const WinnerModal = () => {
   const dispatch = useAppDispatch();
   const raceWinner = useAppSelector(selectRaceWinner);
-  console.log(raceWinner);
   const { id, time, name } = raceWinner;
   const timeInSec = Number((time / 1000).toFixed(2));
 
