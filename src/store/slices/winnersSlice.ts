@@ -66,20 +66,28 @@ export const winnersSlice = createSlice({
   },
 });
 
-export const { setWinner, setWinners, setRaceFinished, resetWinner, setWinnersAmount } =
-  winnersSlice.actions;
+export const {
+  setWinner,
+  setWinners,
+  setRaceFinished,
+  resetWinner,
+  setWinnersAmount,
+  setTotalWinners,
+} = winnersSlice.actions;
 
 export const fetchGetWinners =
   (page: number, sortBy: string, order: string) => async (dispatch: AppDispatch) => {
-    const { winners } = await WinnersApi.getWinners(page, sortBy, order);
+    const { winners, totalRecords } = await WinnersApi.getWinners(page, sortBy, order);
     const carsPromises = winners.map(async (winner) => {
       const carData: ICar = await Api.getCar(winner.id);
       const combinedData: IWinnerInfo = { ...winner, ...carData };
       return combinedData;
     });
     const winnersInfo: IWinnerInfo[] = await Promise.all(carsPromises);
-    console.log(winnersInfo);
     dispatch(setWinners(winnersInfo));
+    if (totalRecords) {
+      dispatch(setTotalWinners(+totalRecords));
+    }
   };
 
 export const fetchCreateWinner = (winnerData: IWinner) => async (dispatch: AppDispatch) => {
@@ -110,5 +118,6 @@ export const fetchUpdateWinnersTable =
 export const selectWinners = (state: RootState) => state.winners.winners;
 export const selectRaceWinner = (state: RootState) => state.winners.newWinner;
 export const selectIsRaceFinished = (state: RootState) => state.winners.isRaceFinished;
+export const selectWinnersAmount = (state: RootState) => state.winners.winnersAmount;
 
 export default winnersSlice.reducer;
