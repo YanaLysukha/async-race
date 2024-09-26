@@ -7,11 +7,11 @@ const WinnerModal = () => {
   const dispatch = useAppDispatch();
   const raceWinner = useAppSelector(selectRaceWinner);
   const { id, time, name } = raceWinner;
-  const timeInSec = (time / 1000).toFixed(2);
+  const timeInSec = Number((time / 1000).toFixed(2));
 
   useEffect(() => {
     if (id) {
-      dispatch(fetchCreateWinner({ id, wins: 1, time }));
+      dispatch(fetchCreateWinner({ id, wins: 1, time: timeInSec }));
     }
   }, [id]);
 

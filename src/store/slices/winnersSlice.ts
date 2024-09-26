@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppDispatch, RootState } from '..';
 import { IWinner } from '../../types';
 import WinnersApi from '../../api/winners';
+import Api from '../../api/cars';
 
 export interface IWinnerInfo extends IWinner {
   name: string;
@@ -60,6 +61,18 @@ export const winnersSlice = createSlice({
 });
 
 export const { setWinner, setWinners, setRaceFinished, resetWinner } = winnersSlice.actions;
+
+export const fetchGetWinners =
+  (page: number, sortBy: string, order: string) => async (dispatch: AppDispatch) => {
+    const { winners } = await WinnersApi.getWinners(page, sortBy, order);
+    const carsPromises = winners.map(async (winner) => {
+      const carData = await Api.getCar(winner.id);
+      const combinedData = { ...winner, ...carData };
+      return combinedData;
+    });
+    const winnersInfo: IWinnerInfo[] = await Promise.all(carsPromises);
+    dispatch(setWinners(winnersInfo));
+  };
 
 export const fetchCreateWinner = (winnerData: IWinner) => async (dispatch: AppDispatch) => {
   await WinnersApi.createWinner(winnerData);
