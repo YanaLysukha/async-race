@@ -57,10 +57,14 @@ export const winnersSlice = createSlice({
     setRaceFinished: (state, action: PayloadAction<boolean>) => {
       state.isRaceFinished = action.payload;
     },
+    setWinnersAmount: (state) => {
+      state.winnersAmount += 1;
+    },
   },
 });
 
-export const { setWinner, setWinners, setRaceFinished, resetWinner } = winnersSlice.actions;
+export const { setWinner, setWinners, setRaceFinished, resetWinner, setWinnersAmount } =
+  winnersSlice.actions;
 
 export const fetchGetWinners =
   (page: number, sortBy: string, order: string) => async (dispatch: AppDispatch) => {
@@ -76,7 +80,28 @@ export const fetchGetWinners =
 
 export const fetchCreateWinner = (winnerData: IWinner) => async (dispatch: AppDispatch) => {
   await WinnersApi.createWinner(winnerData);
+  dispatch(setWinnersAmount());
 };
+
+export const fetchUpdateWinner = (winnerData: IWinner) => async () => {
+  await WinnersApi.updateWinner(winnerData);
+};
+
+export const fetchUpdateWinnersTable =
+  (id: number, time: number) => async (dispatch: AppDispatch) => {
+    const currentWinner = await WinnersApi.getWinner(id);
+    if (!currentWinner) {
+      dispatch(fetchCreateWinner({ id, wins: 1, time }));
+    } else {
+      const bestTime = Math.min(currentWinner.time, time);
+      const updatedData = {
+        id: currentWinner.id,
+        wins: currentWinner.wins + 1,
+        time: bestTime,
+      };
+      dispatch(fetchUpdateWinner(updatedData));
+    }
+  };
 
 export const selectWinners = (state: RootState) => state.winners.winners;
 export const selectRaceWinner = (state: RootState) => state.winners.newWinner;

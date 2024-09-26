@@ -18,8 +18,12 @@ export default class WinnersApi {
     const url = `${UrlPath.BASE}/${UrlPath.WINNERS}/${id}`;
     try {
       const response = await fetch(url);
-      const winner: IWinner = await response.json();
-      return winner;
+      if (response.status === 404) {
+        return null;
+      } else {
+        const winner: IWinner = await response.json();
+        return winner;
+      }
     } catch (error) {
       throw Error(`${error}`);
     }

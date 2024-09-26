@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import WinnersTable from '../../components/table';
 import { fetchGetWinners, selectWinners } from '../../store/slices/winnersSlice';
-import { useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 const WinnersPage = () => {
+  const dispatch = useAppDispatch();
   const winners = useAppSelector(selectWinners);
-  console.log(winners);
 
   useEffect(() => {
-    fetchGetWinners(1, 'id', 'ASC');
+    dispatch(fetchGetWinners(1, 'id', 'ASC'));
   }, []);
 
   return (
