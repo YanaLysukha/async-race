@@ -5,6 +5,7 @@ import { AppDispatch, RootState } from '..';
 import Api from '../../api/cars';
 import { getRandomCarColor, getRandomCarName } from '../../helpers';
 import { GENERATE_CARS_NUMBER, PAGE_LIMIT } from '../../api/data';
+import WinnersApi from '../../api/winners';
 
 export enum RaceStatus {
   INIT = 'initial',
@@ -120,6 +121,11 @@ export const fetchCreateCar =
 export const fetchDeleteCar = (id: number, page: number) => async (dispatch: AppDispatch) => {
   await Api.deleteCar(id);
   dispatch(fetchCarsOnCurrentPage(page));
+
+  const winner = await WinnersApi.getWinner(id);
+  if (winner) {
+    await WinnersApi.deleteWinner(winner.id);
+  }
 };
 
 export const fetchUpdateCar = (carData: ICar, page: number) => async (dispatch: AppDispatch) => {
