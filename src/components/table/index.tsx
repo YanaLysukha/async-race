@@ -1,21 +1,53 @@
-import { IWinnerInfo } from '../../store/slices/winnersSlice';
+import { useAppDispatch } from '../../store/hooks';
+import {
+  IWinnerInfo,
+  setSortParam,
+  toggleTimeOrder,
+  toggleWinsOrder,
+  WinnersSortOrder,
+  WinnersSortParams,
+} from '../../store/slices/winnersSlice';
 import CarIcon from '../car';
 import './style.scss';
 
 type TableProps = {
   winners: IWinnerInfo[];
+  timeOrder: WinnersSortOrder;
+  winsOrder: WinnersSortOrder;
 };
 
-const WinnersTable = ({ winners }: TableProps) => {
+const WinnersTable = ({ winners, timeOrder, winsOrder }: TableProps) => {
+  const dispatch = useAppDispatch();
+
+  const sortTime = () => {
+    dispatch(toggleTimeOrder(timeOrder));
+    dispatch(setSortParam(WinnersSortParams.TIME));
+  };
+
+  const sortWins = () => {
+    dispatch(toggleWinsOrder(winsOrder));
+    dispatch(setSortParam(WinnersSortParams.WINS));
+  };
+
   return (
     <table className="table">
       <thead className="table-head">
         <tr>
-          <th className="table-head-item">Number</th>
-          <th className="table-head-item">Car</th>
-          <th className="table-head-item">Name</th>
-          <th className="table-head-item">Wins</th>
-          <th className="table-head-item">Best time</th>
+          <th>Number</th>
+          <th>Car</th>
+          <th>Name</th>
+          <th
+            className={`${winsOrder === WinnersSortOrder.ASC ? 'table-head-item asc' : 'table-head-item desc'}`}
+            onClick={sortWins}
+          >
+            Wins
+          </th>
+          <th
+            className={`${timeOrder === WinnersSortOrder.ASC ? 'table-head-item asc' : 'table-head-item desc'}`}
+            onClick={sortTime}
+          >
+            Best time
+          </th>
         </tr>
       </thead>
       <tbody>

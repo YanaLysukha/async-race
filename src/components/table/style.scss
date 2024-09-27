@@ -9,7 +9,7 @@
   background-color: $table-header;
 }
 
-.table-head-item {
+th {
   padding: 0.8rem;
 }
 
@@ -30,5 +30,32 @@
     position: absolute;
     left: 0;
     top: 0;
+  }
+}
+
+.table-head-item.asc {
+  position: relative;
+  cursor: pointer;
+
+  &::after {
+    content: '^';
+    position: absolute;
+    width: 1.5rem;
+    height: 1.5rem;
+    right: 0;
+  }
+}
+
+.table-head-item.desc {
+  position: relative;
+  cursor: pointer;
+
+  &::after {
+    content: '^';
+    transform: rotate(180deg);
+    position: absolute;
+    width: 1.5rem;
+    height: 1.5rem;
+    right: 0;
   }
 }
