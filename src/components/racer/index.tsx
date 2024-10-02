@@ -41,7 +41,6 @@ const Racer = ({ carData }: RacerProps) => {
     if (isDriving) {
       const { success } = await Api.drive(carData.id);
       if (!success) {
-        setIsDriving(false);
         cancelAnimationFrame(animationId.current);
       }
     }
@@ -63,7 +62,6 @@ const Racer = ({ carData }: RacerProps) => {
       setPosition(position);
       if (position === trackWidth) {
         finished = true;
-        setIsDriving(false);
         endAnimation(time);
       }
 
@@ -98,7 +96,7 @@ const Racer = ({ carData }: RacerProps) => {
   };
 
   const endAnimation = (time: number) => {
-    if (!isRaceFinished) {
+    if (!isRaceFinished && raceStatus === RaceStatus.RACE) {
       dispatch(
         setWinner({
           id: carData.id,
