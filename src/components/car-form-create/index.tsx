@@ -38,7 +38,12 @@ const CarFormCreate = ({ currentPage }: CarFormCreateProps) => {
 
   return (
     <div className="form-wrapper">
-      <Input type="text" placeholder="Car Name" onChange={onCreateCarName} value={carName}></Input>
+      <Input
+        type="text"
+        placeholder="Create your new car"
+        onChange={onCreateCarName}
+        value={carName}
+      ></Input>
       <Input type="color" onChange={onCreateCarColor} value={carColor}></Input>
       <Button text="Create car" classes="basic" onClickHandler={createCar}></Button>
     </div>

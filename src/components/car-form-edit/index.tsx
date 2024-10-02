@@ -37,7 +37,7 @@ const CarFormEdit = ({ currentPage }: CarFormEditProps) => {
       <Input
         type="text"
         value={selectedCar.name}
-        placeholder="Car Name"
+        placeholder="Edit existing car"
         disabled={selectedCar.id === 0}
         onChange={onEditCarName}
       ></Input>
