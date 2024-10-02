@@ -20,13 +20,13 @@ const WinnersTable = ({ winners, timeOrder, winsOrder }: TableProps) => {
   const dispatch = useAppDispatch();
 
   const sortTime = () => {
-    dispatch(toggleTimeOrder(timeOrder));
     dispatch(setSortParam(WinnersSortParams.TIME));
+    dispatch(toggleTimeOrder(timeOrder));
   };
 
   const sortWins = () => {
-    dispatch(toggleWinsOrder(winsOrder));
     dispatch(setSortParam(WinnersSortParams.WINS));
+    dispatch(toggleWinsOrder(winsOrder));
   };
 
   return (

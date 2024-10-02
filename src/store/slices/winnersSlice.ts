@@ -60,11 +60,11 @@ export const initialState: IWinnersState = {
   pageNumber: 1,
   pagesAmount: 1,
   sortByTime: {
-    orderType: WinnersSortOrder.ASC,
+    orderType: WinnersSortOrder.DESC,
     sortBy: WinnersSortParams.TIME,
   },
   sortByWins: {
-    orderType: WinnersSortOrder.ASC,
+    orderType: WinnersSortOrder.DESC,
     sortBy: WinnersSortParams.WINS,
   },
   sortParam: WinnersSortParams.WINS,

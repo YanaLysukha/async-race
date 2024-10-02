@@ -39,6 +39,7 @@ th {
 
   &::after {
     content: '^';
+    transform: rotate(180deg);
     position: absolute;
     width: 1.5rem;
     height: 1.5rem;
@@ -52,7 +53,7 @@ th {
 
   &::after {
     content: '^';
-    transform: rotate(180deg);
+    
     position: absolute;
     width: 1.5rem;
     height: 1.5rem;
