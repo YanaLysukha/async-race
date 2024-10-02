@@ -87,10 +87,6 @@ export const garageSlice = createSlice({
       state.raceStatus = action.payload;
     },
 
-    setRacerAnimation: (state, action: PayloadAction<RacerAnimationType>) => {
-      state.racersAnimation = [...state.racersAnimation, action.payload];
-    },
-
     updateRacerAnimation: (state, action: PayloadAction<RacerAnimationType>) => {
       const newState = state.racersAnimation.filter((item) => item.id !== action.payload.id);
       state.racersAnimation = [...newState, action.payload];
@@ -158,7 +154,6 @@ export const {
   setSelectedCarName,
   setSelectedCarColor,
   setRaceStatus,
-  setRacerAnimation,
   updateRacerAnimation,
   clearRacerAnimation,
 } = garageSlice.actions;
@@ -170,6 +165,5 @@ export const selectPagesAmount = (state: RootState) => state.garage.pagesAmount;
 export const selectCreatedCar = (state: RootState) => state.garage.createdCar;
 export const selectSelectedCar = (state: RootState) => state.garage.selectedCar;
 export const selectRaceStatus = (state: RootState) => state.garage.raceStatus;
-export const selectRaceAnimation = (state: RootState) => state.garage.racersAnimation;
 
 export default garageSlice.reducer;
