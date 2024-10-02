@@ -20,14 +20,10 @@ export interface IWinnerInfo extends IWinner {
   color: string;
 }
 
-export type SortByTime = {
-  orderType: WinnersSortOrder;
-  sortBy: WinnersSortParams.TIME;
-};
-
-export type SortByWins = {
-  orderType: WinnersSortOrder;
-  sortBy: WinnersSortParams.WINS;
+export type WinnersTableSort = {
+  sortParam: WinnersSortParams;
+  winsSortOrder: WinnersSortOrder;
+  timeSortOrder: WinnersSortOrder;
 };
 
 type NewRaceWinner = {
@@ -43,9 +39,7 @@ interface IWinnersState {
   isRaceFinished: boolean;
   pageNumber: number;
   pagesAmount: number;
-  sortByTime: SortByTime;
-  sortByWins: SortByWins;
-  sortParam: WinnersSortParams;
+  winnersTableSort: WinnersTableSort;
 }
 
 export const initialState: IWinnersState = {
@@ -59,15 +53,11 @@ export const initialState: IWinnersState = {
   isRaceFinished: false,
   pageNumber: 1,
   pagesAmount: 1,
-  sortByTime: {
-    orderType: WinnersSortOrder.DESC,
-    sortBy: WinnersSortParams.TIME,
+  winnersTableSort: {
+    sortParam: WinnersSortParams.WINS,
+    winsSortOrder: WinnersSortOrder.DESC,
+    timeSortOrder: WinnersSortOrder.DESC,
   },
-  sortByWins: {
-    orderType: WinnersSortOrder.DESC,
-    sortBy: WinnersSortParams.WINS,
-  },
-  sortParam: WinnersSortParams.WINS,
 };
 
 export const winnersSlice = createSlice({
@@ -107,18 +97,18 @@ export const winnersSlice = createSlice({
       state.pagesAmount = action.payload;
     },
     // winners table
-    toggleTimeOrder: (state, action: PayloadAction<string>) => {
+    toggleTimeOrder: (state, action: PayloadAction<WinnersSortOrder>) => {
       const orderType =
         action.payload === WinnersSortOrder.ASC ? WinnersSortOrder.DESC : WinnersSortOrder.ASC;
-      state.sortByTime = { orderType, sortBy: state.sortByTime.sortBy };
+      state.winnersTableSort = { ...state.winnersTableSort, timeSortOrder: orderType };
     },
-    toggleWinsOrder: (state, action: PayloadAction<string>) => {
+    toggleWinsOrder: (state, action: PayloadAction<WinnersSortOrder>) => {
       const orderType =
         action.payload === WinnersSortOrder.ASC ? WinnersSortOrder.DESC : WinnersSortOrder.ASC;
-      state.sortByWins = { orderType, sortBy: state.sortByWins.sortBy };
+      state.winnersTableSort = { ...state.winnersTableSort, winsSortOrder: orderType };
     },
     setSortParam: (state, action: PayloadAction<WinnersSortParams>) => {
-      state.sortParam = action.payload;
+      state.winnersTableSort = { ...state.winnersTableSort, sortParam: action.payload };
     },
   },
 });
@@ -185,8 +175,6 @@ export const selectIsRaceFinished = (state: RootState) => state.winners.isRaceFi
 export const selectWinnersAmount = (state: RootState) => state.winners.winnersAmount;
 export const selectPageNumber = (state: RootState) => state.winners.pageNumber;
 export const selectPagesAmount = (state: RootState) => state.winners.pagesAmount;
-export const selectTimeOrder = (state: RootState) => state.winners.sortByTime.orderType;
-export const selectWinsOrder = (state: RootState) => state.winners.sortByWins.orderType;
-export const selectSortParam = (state: RootState) => state.winners.sortParam;
+export const selectWinnersTableSort = (state: RootState) => state.winners.winnersTableSort;
 
 export default winnersSlice.reducer;
