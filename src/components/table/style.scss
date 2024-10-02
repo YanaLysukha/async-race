@@ -2,6 +2,7 @@
 
 .table {
   width: 100%;
+  margin-bottom: 1.5rem;
 }
 
 .table-head {
@@ -53,7 +54,6 @@ th {
 
   &::after {
     content: '^';
-
     position: absolute;
     width: 1.5rem;
     height: 1.5rem;

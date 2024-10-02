@@ -1,40 +1,21 @@
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import {
-  fetchCarsOnCurrentPage,
-  RaceStatus,
-  selectCurrentPage,
-  selectPagesAmount,
-  setCurrentPage,
-  setRaceStatus,
-} from '../../store/slices/garageSlice';
-import { resetWinner } from '../../store/slices/winnersSlice';
 import Button from '../button';
 import ToTheLeftIcon from '../icons/to-the-left-icon';
 import ToTheRightIcon from '../icons/to-the-right-icon';
 import './style.scss';
 
-const Pagination = () => {
-  const dispatch = useAppDispatch();
-  const pagesAmount = useAppSelector(selectPagesAmount);
-  const currentPage = useAppSelector(selectCurrentPage);
+type PaginationProps = {
+  currentPage: number;
+  pagesAmount: number;
+  toThePrevPage: () => void;
+  toTheNextPage: () => void;
+};
 
-  const resetRace = () => {
-    dispatch(setRaceStatus(RaceStatus.INIT));
-    dispatch(resetWinner());
-  };
-
-  const toTheNextPage = async () => {
-    dispatch(setCurrentPage(currentPage + 1));
-    dispatch(fetchCarsOnCurrentPage(currentPage + 1));
-    resetRace();
-  };
-
-  const toThePrevPage = () => {
-    dispatch(setCurrentPage(currentPage - 1));
-    dispatch(fetchCarsOnCurrentPage(currentPage - 1));
-    resetRace();
-  };
-
+const Pagination = ({
+  currentPage,
+  pagesAmount,
+  toThePrevPage,
+  toTheNextPage,
+}: PaginationProps) => {
   return (
     <div className="garage-pagination-wrapper">
       <div className="pages">
