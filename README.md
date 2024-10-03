@@ -15,7 +15,7 @@ To test the app functionality, please clone [repo](https://github.com/mikhama/as
    ```bash
    git clone https://github.com/YanaLysukha/async-race
    ```
-2. Navigate to the project directory:
+2. Switch to the async-race branch:
     ```bash
    git checkout async-race
    ```
