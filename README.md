@@ -10,6 +10,24 @@ To test the app functionality, please clone [repo](https://github.com/mikhama/as
 - Install dependencies: npm install.
 - Start server: npm start.
 
+## Installation:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/YanaLysukha/async-race
+   ```
+2. Navigate to the project directory:
+    ```bash
+   git checkout async-race
+   ```
+3. Install dependencies:
+    ```bash
+    npm install
+    ```
+4. Start the application:
+    ```bash
+    npm start
+    ```
+
 ## Technology stack:
 - React
 - Redux Toolkit
