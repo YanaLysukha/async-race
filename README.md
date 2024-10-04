@@ -1,7 +1,9 @@
 # Async-race application
+
 This application is designed to manage a garage of cars, simulate races, and display winning statistics. It consists of two main views: "Garage" and "Winners". The app provides a range of functionalities, including CRUD operations for cars, animated racing, and persistent view state.
 
 ## Setup and Running the Server:
+
 To test the app functionality, please clone [repo](https://github.com/mikhama/async-race-api.git) with a server and keep the server running during functionality review.
 
 - Use node 14.x or higher.
@@ -11,24 +13,26 @@ To test the app functionality, please clone [repo](https://github.com/mikhama/as
 - Start server: npm start.
 
 ## Installation:
+
 1. Clone the repository:
    ```bash
    git clone https://github.com/YanaLysukha/async-race
    ```
 2. Switch to the async-race branch:
-    ```bash
+   ```bash
    git checkout async-race
    ```
 3. Install dependencies:
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm install
+   ```
 4. Start the application:
-    ```bash
-    npm start
-    ```
+   ```bash
+   npm run dev
+   ```
 
 ## Technology stack:
+
 - React
 - Redux Toolkit
 - React Redux
@@ -63,6 +67,7 @@ To test the app functionality, please clone [repo](https://github.com/mikhama/as
   - Display the winner's name when the race ends.
 
 ### Winners View
+
 - Displays car images, names, number of wins, and best race times.
 - Sorting options by number of wins and best times.
 - Pagination for navigating through the list of winners.
