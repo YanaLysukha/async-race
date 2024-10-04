@@ -2,6 +2,9 @@
 
 This application is designed to manage a garage of cars, simulate races, and display winning statistics. It consists of two main views: "Garage" and "Winners". The app provides a range of functionalities, including CRUD operations for cars, animated racing, and persistent view state.
 
+## Deployment link:
+[click here](https://async-races.netlify.app/garage)
+
 ## Setup and Running the Server:
 
 To test the app functionality, please clone [repo](https://github.com/mikhama/async-race-api.git) with a server and keep the server running during functionality review.
