@@ -28,7 +28,6 @@ interface IGarageState {
   createdCar: CarData;
   selectedCar: ICar;
   raceStatus: string;
-  // racersAnimation: RacerAnimationType[];
   currentInputValues: CarData;
 }
 
@@ -40,7 +39,6 @@ const initialState: IGarageState = {
   createdCar: { name: '', color: '#ffffff' },
   selectedCar: { name: '', color: '#ffffff', id: 0 },
   raceStatus: RaceStatus.INIT,
-  // racersAnimation: [],
   currentInputValues: { name: '', color: '#000000' },
 };
 
@@ -96,15 +94,6 @@ export const garageSlice = createSlice({
     setRaceStatus: (state, action: PayloadAction<RaceStatus>) => {
       state.raceStatus = action.payload;
     },
-
-    // updateRacerAnimation: (state, action: PayloadAction<RacerAnimationType>) => {
-    //   const newState = state.racersAnimation.filter((item) => item.id !== action.payload.id);
-    //   state.racersAnimation = [...newState, action.payload];
-    // },
-
-    // clearRacerAnimation: (state) => {
-    //   state.racersAnimation = [];
-    // },
   },
 });
 
@@ -164,8 +153,6 @@ export const {
   setSelectedCarName,
   setSelectedCarColor,
   setRaceStatus,
-  // updateRacerAnimation,
-  // clearRacerAnimation,
   setInputName,
   setInputColor,
 } = garageSlice.actions;
