@@ -29,6 +29,7 @@ interface IGarageState {
   selectedCar: ICar;
   raceStatus: string;
   racersAnimation: RacerAnimationType[];
+  currentInputValues: CarData;
 }
 
 const initialState: IGarageState = {
@@ -40,6 +41,7 @@ const initialState: IGarageState = {
   selectedCar: { name: '', color: '#ffffff', id: 0 },
   raceStatus: RaceStatus.INIT,
   racersAnimation: [],
+  currentInputValues: { name: '', color: '#000000' },
 };
 
 export const garageSlice = createSlice({
@@ -58,6 +60,14 @@ export const garageSlice = createSlice({
     },
     setCreatedCarColor: (state, action: PayloadAction<string>) => {
       state.createdCar.color = action.payload;
+    },
+
+    // input values
+    setInputName: (state, action: PayloadAction<string>) => {
+      state.currentInputValues.name = action.payload;
+    },
+    setInputColor: (state, action: PayloadAction<string>) => {
+      state.currentInputValues.color = action.payload;
     },
 
     // selected car
@@ -156,6 +166,8 @@ export const {
   setRaceStatus,
   updateRacerAnimation,
   clearRacerAnimation,
+  setInputName,
+  setInputColor,
 } = garageSlice.actions;
 
 export const selectCurrentCars = (state: RootState) => state.garage.cars;
@@ -165,5 +177,6 @@ export const selectPagesAmount = (state: RootState) => state.garage.pagesAmount;
 export const selectCreatedCar = (state: RootState) => state.garage.createdCar;
 export const selectSelectedCar = (state: RootState) => state.garage.selectedCar;
 export const selectRaceStatus = (state: RootState) => state.garage.raceStatus;
+export const selectCurrentInputValues = (state: RootState) => state.garage.currentInputValues;
 
 export default garageSlice.reducer;

@@ -1,10 +1,12 @@
-import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
   fetchCreateCar,
   selectCreatedCar,
+  selectCurrentInputValues,
   setCreatedCarColor,
   setCreatedCarName,
+  setInputColor,
+  setInputName,
 } from '../../store/slices/garageSlice';
 import Button from '../button';
 import Input from '../input';
@@ -17,23 +19,22 @@ type CarFormCreateProps = {
 const CarFormCreate = ({ currentPage }: CarFormCreateProps) => {
   const createdCar = useAppSelector(selectCreatedCar);
   const dispatch = useAppDispatch();
-  const [carName, setCarName] = useState('');
-  const [carColor, setCarColor] = useState('');
+  const currentInputValue = useAppSelector(selectCurrentInputValues);
 
   const createCar = () => {
     dispatch(fetchCreateCar(createdCar ?? { name: 'New Car', color: '#ffffff' }, currentPage));
-    setCarName('');
-    setCarColor('ffffff');
+    dispatch(setInputName(''));
+    dispatch(setInputColor('#000000'));
   };
 
   const onCreateCarName = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setCreatedCarName(event?.target.value));
-    setCarName(event.target.value);
+    dispatch(setInputName(event.target.value));
   };
 
   const onCreateCarColor = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setCreatedCarColor(event.target.value));
-    setCarColor(event.target.value);
+    dispatch(setInputColor(event.target.value));
   };
 
   return (
@@ -42,9 +43,9 @@ const CarFormCreate = ({ currentPage }: CarFormCreateProps) => {
         type="text"
         placeholder="Create your new car"
         onChange={onCreateCarName}
-        value={carName}
+        value={currentInputValue.name}
       ></Input>
-      <Input type="color" onChange={onCreateCarColor} value={carColor}></Input>
+      <Input type="color" onChange={onCreateCarColor} value={currentInputValue.color}></Input>
       <Button text="Create car" classes="basic" onClickHandler={createCar}></Button>
     </div>
   );
