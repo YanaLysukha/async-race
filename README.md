@@ -7,7 +7,8 @@ This application is designed to manage a garage of cars, simulate races, and dis
 [click here](https://async-races.netlify.app)
 
 ## Video:
-<iframe width="560" height="315" src="https://www.loom.com/share/187100b3a87e4348b83133bb53af3355?sid=1d3adb0f-6511-460e-90fb-a3e8126c4bc3" frameborder="0" allowfullscreen></iframe>
+[Watch the project video](https://www.loom.com/share/187100b3a87e4348b83133bb53af3355?sid=1d3adb0f-6511-460e-90fb-a3e8126c4bc3)
+
 
 ## Setup and Running the Server:
 
