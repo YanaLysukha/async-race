@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import CarControlPanel from '../../components/car-control-panel';
 import RaceTrack from '../../components/race-track';
 import WinnerModal from '../../components/winner-modal';
@@ -15,7 +15,7 @@ import {
 } from '../../store/slices/garageSlice';
 import './style.scss';
 import Pagination from '../../components/pagination';
-import { resetWinner } from '../../store/slices/winnersSlice';
+import { resetWinner, selectRaceWinner } from '../../store/slices/winnersSlice';
 
 const GaragePage = () => {
   const dispatch = useAppDispatch();
@@ -23,16 +23,29 @@ const GaragePage = () => {
   const carsAmount = useAppSelector(selectCarsAmount);
   const currentPage = useAppSelector(selectCurrentPage);
   const pagesAmount = useAppSelector(selectPagesAmount);
+  const raceWinner = useAppSelector(selectRaceWinner);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    if (raceWinner.id) {
+      setIsVisible(true);
+      const timer = setTimeout(() => {
+        setIsVisible(false);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [raceWinner.id]);
 
   useEffect(() => {}, [currentPage, cars]);
 
   useEffect(() => {
     dispatch(fetchCarsOnCurrentPage(currentPage));
-    dispatch(setRaceStatus(RaceStatus.INIT));
+    dispatch(setRaceStatus(RaceStatus.RESET));
   }, []);
 
   const resetRace = () => {
-    dispatch(setRaceStatus(RaceStatus.INIT));
+    dispatch(setRaceStatus(RaceStatus.RESET));
     dispatch(resetWinner());
   };
 
@@ -50,7 +63,7 @@ const GaragePage = () => {
 
   return (
     <main className="page-container">
-      <WinnerModal></WinnerModal>
+      {isVisible && <WinnerModal raceWinner={raceWinner}></WinnerModal>}
       <CarControlPanel currentPage={currentPage}></CarControlPanel>
       <div className="cars-amount">Cars in garage: {carsAmount}</div>
       <div className="tracks-container">

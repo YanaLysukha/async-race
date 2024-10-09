@@ -1,11 +1,14 @@
 import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { fetchUpdateWinnersTable, selectRaceWinner } from '../../store/slices/winnersSlice';
+import { useAppDispatch } from '../../store/hooks';
+import { fetchUpdateWinnersTable, NewRaceWinner } from '../../store/slices/winnersSlice';
 import './style.scss';
 
-const WinnerModal = () => {
+type WinnerModalProps = {
+  raceWinner: NewRaceWinner;
+};
+
+const WinnerModal = ({ raceWinner }: WinnerModalProps) => {
   const dispatch = useAppDispatch();
-  const raceWinner = useAppSelector(selectRaceWinner);
   const { id, time, name } = raceWinner;
   const timeInSec = Number((time / 1000).toFixed(2));
 

@@ -38,7 +38,7 @@ const initialState: IGarageState = {
   pagesAmount: 1,
   createdCar: { name: '', color: '#ffffff' },
   selectedCar: { name: '', color: '#ffffff', id: 0 },
-  raceStatus: RaceStatus.INIT,
+  raceStatus: RaceStatus.RESET,
   currentInputValues: { name: '', color: '#000000' },
 };
 

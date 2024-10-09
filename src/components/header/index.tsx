@@ -11,7 +11,7 @@ export const Header = () => {
 
   const switchPage = () => {
     if (raceStatus === RaceStatus.RACE) {
-      dispatch(setRaceStatus(RaceStatus.INIT));
+      dispatch(setRaceStatus(RaceStatus.RESET));
       dispatch(resetWinner());
     }
   };

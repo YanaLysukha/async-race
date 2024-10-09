@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Api from '../../api/engine';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { RaceStatus, selectRaceStatus } from '../../store/slices/garageSlice';
+import { RaceStatus, selectRaceStatus, setRaceStatus } from '../../store/slices/garageSlice';
 import { selectIsRaceFinished, setWinner } from '../../store/slices/winnersSlice';
 import { ICar } from '../../types';
 import Button from '../button';
@@ -84,6 +84,7 @@ const Racer = ({ carData }: RacerProps) => {
       setIsDriving(false);
       setPosition(0);
       cancelAnimationFrame(animationId.current);
+      dispatch(setRaceStatus(RaceStatus.RESET));
     }
   };
 

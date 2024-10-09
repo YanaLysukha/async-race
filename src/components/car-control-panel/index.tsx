@@ -5,7 +5,7 @@ import {
   selectRaceStatus,
   setRaceStatus,
 } from '../../store/slices/garageSlice';
-import { resetWinner } from '../../store/slices/winnersSlice';
+import { resetWinner, setRaceFinished } from '../../store/slices/winnersSlice';
 import Button from '../button';
 import CarFormCreate from '../car-form-create';
 import CarFormEdit from '../car-form-edit';
@@ -25,6 +25,7 @@ const CarControlPanel = ({ currentPage }: CarControlPanelProps) => {
 
   const startRace = () => {
     dispatch(setRaceStatus(RaceStatus.RACE));
+    dispatch(setRaceFinished(false));
   };
 
   const resetRace = () => {

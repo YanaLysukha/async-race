@@ -26,7 +26,7 @@ export type WinnersTableSort = {
   timeSortOrder: WinnersSortOrder;
 };
 
-type NewRaceWinner = {
+export type NewRaceWinner = {
   id: number | null;
   name: string;
   time: number;
@@ -76,7 +76,7 @@ export const winnersSlice = createSlice({
         name: '',
         time: 0,
       };
-      state.isRaceFinished = false;
+      // state.isRaceFinished = false;
     },
     setWinners: (state, action: PayloadAction<IWinnerInfo[]>) => {
       state.winners = action.payload;
