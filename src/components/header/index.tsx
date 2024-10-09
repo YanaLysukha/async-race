@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import './style.scss';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { RaceStatus, selectRaceStatus, setRaceStatus } from '../../store/slices/garageSlice';
-import { resetWinner } from '../../store/slices/winnersSlice';
+import { resetWinner, setRaceFinished } from '../../store/slices/winnersSlice';
 
 export const Header = () => {
   const dispatch = useAppDispatch();
@@ -13,6 +13,7 @@ export const Header = () => {
     if (raceStatus === RaceStatus.RACE) {
       dispatch(setRaceStatus(RaceStatus.RESET));
       dispatch(resetWinner());
+      dispatch(setRaceFinished(true));
     }
   };
 
